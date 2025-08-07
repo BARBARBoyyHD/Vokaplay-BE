@@ -1,6 +1,6 @@
 import supabase from "../../supabase/supabase.js";
 
-// question payload 
+// question payload
 // [
 //   {
 //     "level_id": 1,
@@ -8,7 +8,8 @@ import supabase from "../../supabase/supabase.js";
 //     "level_number": 1,
 //     "user_id": 2,
 //     "question": "Question 1",
-//     "answer": "A"
+//     "answer": "A",
+//     "asset_file":2
 //   },
 //   {
 //     "level_id": 1,
@@ -16,7 +17,8 @@ import supabase from "../../supabase/supabase.js";
 //     "level_number": 2,
 //     "user_id": 2,
 //     "question": "Question 2",
-//     "answer": "B"
+//     "answer": "B",
+//     "asset_file":2
 //   },
 //   {
 //     "level_id": 1,
@@ -24,11 +26,11 @@ import supabase from "../../supabase/supabase.js";
 //     "level_number": 3,
 //     "user_id": 2,
 //     "question": "Question 3",
-//     "answer": "C"
+//     "answer": "C",
+//     "asset_file":2
 //   }
 //   // ... up to 10
 // ]
-
 
 export const addQuestion = async (req, res) => {
   try {
@@ -45,7 +47,9 @@ export const addQuestion = async (req, res) => {
       type: "success",
       data: data,
     });
+    return;
   } catch (error) {
     res.status(500).json({ message: error.message });
+    return;
   }
 };

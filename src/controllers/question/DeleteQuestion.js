@@ -35,7 +35,9 @@ export const deleteQuestion = async (req, res) => {
     res.status(200).json({
       message: `Success deleting detail_level with ID: ${dt_id}`,
     });
+    return;
   } catch (error) {
     res.status(500).json({ message: error.message });
+    return;
   }
 };

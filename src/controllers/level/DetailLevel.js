@@ -11,7 +11,7 @@ export const detailLevel = async (req, res) => {
       .single();
 
     if (error) throw error;
-    res.status(201).json({
+    res.status(200).json({
       type: "succes",
       data: data,
     });

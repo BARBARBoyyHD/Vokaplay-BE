@@ -1,15 +1,11 @@
 import supabase from "../../supabase/supabase.js";
 
-export const detailQuestion = async (req, res) => {
+export const getWordShuffle = async (req, res) => {
   try {
-    const { level_id } = req.params;
 
     const { data, error } = await supabase
-      .from("detail_level")
-      .select(
-        "dt_id, level_id, level_name, level_number, question, answer, user_id, created_at"
-      )
-      .eq("level_id", level_id);
+      .from("word_shuffle")
+      .select("id, level_id, question, answer, question_number, asset_file");
 
     if (error) throw error;
 

@@ -3,14 +3,14 @@ import supabase from "../../supabase/supabase.js";
 // payload
 
 // {
+//     "level_id": 1,
 //     "level_name": "Level 1",
 //     "level_number": 2,
-//     "question": "Chair",
 //     "user_id": 2,
+//     "question": "Question 2",
 //     "answer": "B",
-//     "created_at": "2025-08-05T08:37:01.90664",
-//     "level_id": 1
-// }
+//     "asset_file": 2
+//  },
 export const editQuestion = async (req, res) => {
   try {
     const { dt_id } = req.params;

@@ -1,14 +1,14 @@
 import supabase from "../../supabase/supabase.js";
 
-export const deleteLevel = async (req, res) => {
+export const deleteWordShuffle = async (req, res) => {
   try {
-    const { level_id } = req.params;
+    const { id } = req.params;
 
     // Check if level exists in the level table (if that's where you're deleting from)
     const { data: findLevel, error: findError } = await supabase
-      .from("level_game")
+      .from("word_shuffle")
       .select("*")
-      .eq("level_id", level_id)
+      .eq("id", id)
       .single();
 
     if (findError || !findLevel) {
@@ -20,9 +20,9 @@ export const deleteLevel = async (req, res) => {
 
     // Proceed to delete the level
     const { error: deleteError } = await supabase
-      .from("level_game")
-      .delete()
-      .eq("level_id", level_id);
+      .from("word_shuffle")
+      .delete("*")
+      .eq("id", id);
 
     if (deleteError) {
       return res.status(500).json({
@@ -33,7 +33,7 @@ export const deleteLevel = async (req, res) => {
     }
 
     res.status(200).json({
-      message: `Success deleting level with ID: ${level_id}`,
+      message: `Success deleting word_shuffle with ID: ${id}`,
     });
     return;
   } catch (error) {
