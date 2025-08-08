@@ -66,7 +66,7 @@ app.get("/api/v2/list/assets", GetAllAssets);
 app.get("/api/v2/detail/assets/:asset_id", DetailAssets);
 app.get("/api/v2/detail/level/:level_id", DetailLevel);
 app.get("/api/v2/list/level", AllLevel);
-app.get("/api/v2/detail/question/:level_id", DetailQuestion);
+app.get("/api/v2/detail/question/:dt_id", DetailQuestion);
 app.get("/api/v2/list/questions", GetAllQuestion);
 app.get("/api/v2/detail/wordshuffle/:id", DetailWordShuffle);
 app.get("/api/v2/list/wordshuffle", GetAllWordShuffle);
