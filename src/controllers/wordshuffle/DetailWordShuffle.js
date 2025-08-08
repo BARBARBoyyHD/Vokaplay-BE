@@ -6,7 +6,22 @@ export const detailWordShuffle = async (req, res) => {
 
     const { data, error } = await supabase
       .from("word_shuffle")
-      .select("id, level_id, question, answer, question_number, asset_file")
+      .select(
+        `
+        id,
+        level_id,
+        question,
+        answer,
+        question_number,
+        asset_filet:asset_file (
+          asset_id,
+          asset_name,
+          asset_file_name,
+          created_at,
+          user_id
+        )
+      `
+      )
       .eq("id", id)
       .single();
 
@@ -16,9 +31,7 @@ export const detailWordShuffle = async (req, res) => {
       type: "success",
       data: data,
     });
-    return;
   } catch (error) {
     res.status(500).json({ message: error.message });
-    return;
   }
 };
