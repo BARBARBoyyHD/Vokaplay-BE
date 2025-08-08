@@ -33,7 +33,7 @@ const port = process.env.PORT;
 const assetsUpload = upload.fields([{ name: "Image", maxCount: 1 }]);
 app.use(
   cors({
-    origin: ["", "http://localhost:8080"],
+    origin: ["https://vokaplay-management-system.vercel.app", "http://localhost:8080"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
