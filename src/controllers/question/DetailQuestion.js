@@ -9,7 +9,8 @@ export const detailQuestion = async (req, res) => {
       .select(
         "dt_id, level_id, level_name, level_number, question, answer, user_id, created_at"
       )
-      .eq("dt_id", dt_id);
+      .eq("dt_id", dt_id)
+      .single();
 
     if (error) throw error;
 
