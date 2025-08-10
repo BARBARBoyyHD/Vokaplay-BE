@@ -1,31 +1,34 @@
 import supabase from "../../supabase/supabase.js";
-import upload from "../../middleware/Storage.js"; // still using this
-import { uploadImage } from "../../services/AssetsServices.js"; // still using this
+import upload from "../../middleware/Storage.js";
+import { uploadImage } from "../../services/AssetsServices.js";
 
 export const uploadImages = upload.fields([{ name: "Image", maxCount: 1 }]);
 
 export default async function edit(req, res) {
   try {
     const { asset_id } = req.params;
-    const { asset_name, user_id } = req.body;
+    const { asset_name, user_id, asset_file_name } = req.body; // added asset_file_name
     const files = req.files;
 
-    if (!files?.Image) {
-      res.status(400).json({ message: "Image are required" });
-      return;
+    let imagePath = asset_file_name; // default to existing path
+
+    // If a new file is uploaded, replace the image
+    if (files?.Image) {
+      imagePath = await uploadImage(files.Image[0], "Images");
     }
 
-    // Upload images to Supabase
-    const Images = await uploadImage(files.Image[0], "Images");
+    // If neither file nor existing path provided, reject
+    if (!imagePath) {
+      return res.status(400).json({ message: "Image is required" });
+    }
 
-    // Insert into DB
     const { data, error } = await supabase
       .from("asset")
       .update([
         {
           asset_name,
           user_id,
-          asset_file_name: Images,
+          asset_file_name: imagePath,
         },
       ])
       .eq("asset_id", asset_id)
@@ -34,7 +37,7 @@ export default async function edit(req, res) {
 
     if (error) throw error;
 
-    return res.status(201).json({
+    return res.status(200).json({
       type: "success",
       data,
     });
