@@ -6,7 +6,13 @@ export const detailQuestion = async (req, res) => {
     const { data, error } = await supabase
       .from("detail_level")
       .select(
-        "dt_id, level_id, level_name, level_number, question, answer, user_id, created_at"
+        `dt_id, level_id, level_name, level_number, question, answer, user_id, created_at, asset:asset_file (
+      asset_id,
+      asset_name,
+      asset_file_name,
+      created_at,
+      user_id
+    )`
       )
       .eq("dt_id", dt_id)
       .maybeSingle();
